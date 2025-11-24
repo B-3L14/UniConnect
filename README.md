@@ -1,162 +1,170 @@
-# UniConnect — Rede Acadêmica Colaborativa
+# UniConnect â€” Rede AcadÃªmica Colaborativa
 
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-blue)](https://dotnet.microsoft.com/)
 [![C# 12](https://img.shields.io/badge/C%23-12.0-blue)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![Entity Framework Core](https://img.shields.io/badge/EF%20Core-9.0-blue)](https://docs.microsoft.com/en-us/ef/core/)
 [![JWT](https://img.shields.io/badge/Auth-JWT-green)](https://jwt.io/)
 
-## ?? Visão Geral
+## ğŸš€ VisÃ£o Geral
 
-**UniConnect** é uma plataforma web moderna para conectar alunos e professores, criando comunidades temáticas, grupos de estudo e facilitando o compartilhamento de materiais educacionais. Desenvolvida com **ASP.NET Core 8**, utiliza arquitetura REST, autenticação JWT, persistência com Entity Framework Core e está totalmente documentada com Swagger.
+**UniConnect** Ã© uma plataforma web moderna para conectar alunos e professores, criando comunidades temÃ¡ticas, grupos de estudo e facilitando o compartilhamento de materiais educacionais. Desenvolvida com **ASP.NET Core 8**, utiliza arquitetura REST, autenticaÃ§Ã£o JWT, persistÃªncia com Entity Framework Core e estÃ¡ totalmente documentada com Swagger.
 
 ### Objetivo
-Criar um espaço colaborativo onde:
-- ????? **Alunos** podem se conectar com professores e colegas
-- ????? **Professores** podem organizar comunidades e compartilhar conteúdo
-- ????? **Admins** gerenciam a plataforma
-- ?? **Comunidades temáticas** funcionam como grupos de estudo
-- ?? **Postagens** permitem compartilhar materiais e discussões
+Criar um espaÃ§o colaborativo onde:
+- **Alunos** podem se conectar com professores e colegas
+- **Professores** podem organizar comunidades e compartilhar conteÃºdo
+- **Admins** gerenciam a plataforma
+- **Comunidades temÃ¡ticas** funcionam como grupos de estudo
+- **Postagens** permitem compartilhar materiais e discussÃµes
 
 ---
 
-## ??? Arquitetura e Tecnologias
+## ğŸ›ï¸ Arquitetura e Tecnologias
 
-### Stack Tecnológico
+### Stack TecnolÃ³gico
 
-| Tecnologia | Versão | Propósito |
+| Tecnologia | VersÃ£o | PropÃ³sito |
 |-----------|--------|----------|
 | **.NET** | 8.0 | Runtime / Framework |
-| **C#** | 12.0 | Linguagem de Programação |
+| **C#** | 12.0 | Linguagem de ProgramaÃ§Ã£o |
 | **ASP.NET Core** | 8.0 | Web API |
-| **Entity Framework Core** | 9.0.11 | ORM / Persistência |
+| **Entity Framework Core** | 9.0.11 | ORM / PersistÃªncia |
 | **SQL Server** | LocalDB | Banco de Dados |
-| **JWT Bearer** | 8.0 | Autenticação |
+| **JWT Bearer** | 8.0 | AutenticaÃ§Ã£o |
 | **BCrypt.Net** | 4.0.2 | Hash de Senhas |
-| **Swagger** | 6.6.2 | Documentação de API |
+| **Swagger** | 6.6.2 | DocumentaÃ§Ã£o de API |
 
-### Padrões de Projeto
+### PadrÃµes de Projeto
 
-- **API RESTful**: Endpoints seguem convenção REST (GET, POST, PUT, DELETE)
-- **POO com Herança**: `Usuario` ? `Aluno`, `Professor`, `Admin` (Table-Per-Hierarchy)
-- **DTO Pattern**: Transferência de dados entre cliente/servidor
+- **API RESTful**: Endpoints seguem convenÃ§Ã£o REST (GET, POST, PUT, DELETE)
+- **POO com HeranÃ§a**: `Usuario`, `Aluno`, `Professor`, `Admin`
+- **DTO Pattern**: TransferÃªncia de dados entre cliente/servidor
 - **Dependency Injection**: Configurado em `Program.cs`
-- **Async/Await**: Operações I/O não-bloqueantes
+- **Async/Await**: OperaÃ§Ãµes I/O nÃ£o-bloqueantes
 - **LINQ**: Queries para ranking e filtragem
 
 ---
 
-## ?? Estrutura do Projeto
+## ğŸ§± Estrutura do Projeto
 
 ```
 UniConnect/
-??? Controllers/
-?   ??? AuthController.cs              # Autenticação (Login/Register)
-?   ??? UsuarioController.cs           # CRUD de Usuários
-?   ??? ComunidadeTematicaController.cs # CRUD de Comunidades + Ranking
-?   ??? ParticipacaoComunidadeController.cs # Gerenciar participações
-?   ??? PostagemController.cs          # CRUD de Postagens (Materiais)
-??? Models/
-?   ??? Usuario.cs                     # Entidade base (herança)
-?   ??? Aluno.cs                       # Especialização: Aluno
-?   ??? Professor.cs                   # Especialização: Professor
-?   ??? Admin.cs                       # Especialização: Admin
-?   ??? ComunidadeTematica.cs          # Grupo de estudo
-?   ??? ParticipacaoComunidade.cs      # Membership na comunidade
-?   ??? Postagem.cs                    # Conteúdo/Material
-??? DTOs/
-?   ??? Auth/
-?   ?   ??? LoginRequestDTO.cs
-?   ?   ??? LoginResponseDTO.cs
-?   ?   ??? RegisterDTO.cs
-?   ?   ??? RegisterResponseDTO.cs
-?   ??? Usuario/
-?   ?   ??? UsuarioCreateDTO.cs
-?   ?   ??? UsuarioUpdateDTO.cs
-?   ?   ??? UsuarioResponseDTO.cs
-?   ?   ??? UsuarioSenhaUpdateDTO.cs
-?   ??? Comunidade/
-?   ?   ??? ComunidadeCreateDTO.cs
-?   ?   ??? ComunidadeUpdateDTO.cs
-?   ?   ??? ComunidadeResponseDTO.cs
-?   ??? Postagem/
-?   ?   ??? PostagemCreateDTO.cs
-?   ?   ??? PostagemUpdateDTO.cs
-?   ?   ??? PostagemResponseDTO.cs
-?   ??? Participacao/
-?       ??? ParticipacaoCreateDTO.cs
-?       ??? ParticipacaoResponseDTO.cs
-??? Services/
-?   ??? TokenService.cs                # Geração de JWT
-??? Data/
-?   ??? DataContext.cs                 # DbContext (EF Core)
-??? Enums/
-?   ??? UsuarioEnum.cs                 # Tipo de usuário
-?   ??? AdminEnum.cs                   # Cargo de admin
-??? Program.cs                         # Configuração da API
-??? appsettings.json                   # Configurações gerais
-??? UniConnect.csproj                  # Projeto C#
-??? CONTRIBUTING.md                    # Padrões de desenvolvimento
-??? README.md                          # Este arquivo
+â”œâ”€â”€ Controllers/
+â”‚   â”œâ”€â”€ AuthController.cs                   # ğŸ”‘ AutenticaÃ§Ã£o (Login/Registro)
+â”‚   â”œâ”€â”€ UsuarioController.cs                # ğŸ‘¤ CRUD de UsuÃ¡rios
+â”‚   â”œâ”€â”€ ComunidadeTematicaController.cs     # ğŸ“š CRUD de Comunidades + Ranking
+â”‚   â”œâ”€â”€ ParticipacaoComunidadeController.cs # ğŸ¤ Gerenciar participaÃ§Ãµes em comunidades
+â”‚   â””â”€â”€ PostagemController.cs               # ğŸ“ CRUD de Postagens (Materiais/ConteÃºdo)
+â”‚
+â”œâ”€â”€ Models/
+â”‚   â”œâ”€â”€ Usuario.cs                          # ğŸ‘¤ Entidade base para usuÃ¡rios (HeranÃ§a)
+â”‚   â”œâ”€â”€ Aluno.cs                            # ğŸ“ EspecializaÃ§Ã£o: Aluno
+â”‚   â”œâ”€â”€ Professor.cs                        # ğŸ‘¨â€ğŸ« EspecializaÃ§Ã£o: Professor
+â”‚   â”œâ”€â”€ Admin.cs                            # âš™ï¸ EspecializaÃ§Ã£o: Admin
+â”‚   â”œâ”€â”€ ComunidadeTematica.cs               # ğŸ“š Grupo de estudo/comunidade
+â”‚   â”œâ”€â”€ ParticipacaoComunidade.cs           # ğŸ¤ Membership/RelaÃ§Ã£o N:M na comunidade
+â”‚   â””â”€â”€ Postagem.cs                         # ğŸ“ ConteÃºdo/Material (postado)
+â”‚
+â”œâ”€â”€ DTOs/                                   # Objetos de TransferÃªncia de Dados
+â”‚   â”œâ”€â”€ Auth/
+â”‚   â”‚   â”œâ”€â”€ LoginRequestDTO.cs
+â”‚   â”‚   â”œâ”€â”€ LoginResponseDTO.cs
+â”‚   â”‚   â”œâ”€â”€ RegisterDTO.cs
+â”‚   â”‚   â””â”€â”€ RegisterResponseDTO.cs
+â”‚   â”œâ”€â”€ Usuario/
+â”‚   â”‚   â”œâ”€â”€ UsuarioCreateDTO.cs
+â”‚   â”‚   â”œâ”€â”€ UsuarioUpdateDTO.cs
+â”‚   â”‚   â”œâ”€â”€ UsuarioResponseDTO.cs
+â”‚   â”‚   â””â”€â”€ UsuarioSenhaUpdateDTO.cs
+â”‚   â”œâ”€â”€ Comunidade/
+â”‚   â”‚   â”œâ”€â”€ ComunidadeCreateDTO.cs
+â”‚   â”‚   â”œâ”€â”€ ComunidadeUpdateDTO.cs
+â”‚   â”‚   â””â”€â”€ ComunidadeResponseDTO.cs
+â”‚   â”œâ”€â”€ Postagem/
+â”‚   â”‚   â”œâ”€â”€ PostagemCreateDTO.cs
+â”‚   â”‚   â”œâ”€â”€ PostagemUpdateDTO.cs
+â”‚   â”‚   â””â”€â”€ PostagemResponseDTO.cs
+â”‚   â””â”€â”€ Participacao/
+â”‚       â”œâ”€â”€ ParticipacaoCreateDTO.cs
+â”‚       â””â”€â”€ ParticipacaoResponseDTO.cs
+â”‚
+â”œâ”€â”€ Services/
+â”‚   â””â”€â”€ TokenService.cs                     # ğŸ” GeraÃ§Ã£o de JSON Web Tokens (JWT)
+â”‚
+â”œâ”€â”€ Data/
+â”‚   â””â”€â”€ DataContext.cs                      # ğŸ’¾ DbContext do Entity Framework Core
+â”‚
+â”œâ”€â”€ Enums/
+â”‚   â”œâ”€â”€ UsuarioEnum.cs                      # Tipo de usuÃ¡rio (Aluno, Professor, Admin)
+â”‚   â””â”€â”€ AdminEnum.cs                        # Cargo de admin (e.g., Gerente, Suporte)
+â”‚
+â”œâ”€â”€ Program.cs                              # ğŸš€ Ponto de entrada e configuraÃ§Ã£o da API
+â”œâ”€â”€ appsettings.json                        # âš™ï¸ ConfiguraÃ§Ãµes gerais (conexÃ£o DB, JWT keys)
+â”œâ”€â”€ UniConnect.csproj                       # ğŸ“¦ Arquivo de projeto C#
+â”œâ”€â”€ CONTRIBUTING.md                         # ğŸ¤ PadrÃµes e guias de desenvolvimento
+â””â”€â”€ README.md                               # â„¹ï¸ Este arquivo
 ```
 
 ---
 
-## ?? Modelos de Dados
+## ğŸ’¾ Modelos de Dados
 
 ### Diagrama de Relacionamentos
 
-```
-Usuario (Base)
-??? Aluno
-?   ??? Curso: string
-?   ??? Semestre: int
-??? Professor
-?   ??? Departamento: string
-?   ??? Titulacao: string
-??? Admin
-    ??? Cargo: enum (Diretor, Coordenador, Secretario)
+Entidades de UsuÃ¡rio (HeranÃ§a)
+| Entidade | Tipo de UsuÃ¡rio | Atributos especÃ­ficos |
+|----------|-----------------|-----------------------|
+|Usuario|Base|Propriedades base (ID, Nome, Email, Senha)|
+| Aluno | EspecializaÃ§Ã£o | Curso: string, Semestre: int |
+| Professor | EspecializaÃ§Ã£o | Departamento: string, Titulacao: string |
+| Admin | EspecializaÃ§Ã£o | Cargo: enum (Valores: Diretor, Coordenador, Secretario) |
 
-ComunidadeTematica
-??? Nome: string
-??? Descricao: string
-??? UsuarioCriador (1:N)
-??? Participacoes (1:N) ? ParticipacaoComunidade
-??? Postagens (1:N) ? Postagem
+Comunidade TemÃ¡tica (ComunidadeTematica)
+| Propriedade | Tipo | DescriÃ§Ã£o |
+|----------|-----------------|-----------------------|
+| Nome | string | Nome da comunidade |
+| Descricao | string | DescriÃ§Ã£o breve |
+| UsuarioCriador | 1:N | O usuÃ¡rio que criou a comunidade (Relacionamento com Usuario) |
+| Participacoes | 1:N | Lista de membros (Relacionamento com ParticipacaoComunidade) |
+| Postagens | 1:N | ConteÃºdos postados na comunidade (Relacionamento com Postagem) |
 
-ParticipacaoComunidade (Join Table com payload)
-??? Usuario (N:1)
-??? ComunidadeTematica (N:1)
-??? Tipo: enum (Membro, Moderador)
-??? DataEntrada: datetime
+ParticipaÃ§Ã£o em Comunidade (ParticipacaoComunidade)
+| Propriedade | Tipo | Relacionamento |
+|----------|-----------------|-----------------------|
+| Usuario| N:1 | O membro (Relacionamento com Usuario) |
+| ComunidadeTematica | N:1 | A comunidade |
+| Tipo | enum | O papel do membro na comunidade (Membro, Moderador) |
+| DataEntrada | datetime | Data em que o usuÃ¡rio ingressou na comunidade |
 
-Postagem
-??? Usuario (N:1) - Quem postou
-??? ComunidadeTematica (N:1) - Em qual comunidade
-??? Conteudo: string
-??? ArquivoUrl: string (Material/Link)
-??? DataPublicacao: datetime
-??? DataAtualizacao: datetime?
-```
+Postagem (Postagem)
+| Propriedade | Tipo | DescriÃ§Ã£o |
+|----------|-----------------|-----------------------|
+| Usuario | N:1 | Quem postou o material (Relacionamento com Usuario) |
+| ComunidadeTematica | N:1 | A comunidade em que a postagem foi feita (Relacionamento com ComunidadeTematica) |
+| Conteudo | string | O corpo principal da postagem |
+| ArquivoUrl | string | Link ou URL para um material externo (e.g., PDF, vÃ­deo) |
+| DataPublicacao | datetime | Data e hora da criaÃ§Ã£o |
+| DataAtualizacao | datetime | Data e hora da Ãºltima modificaÃ§Ã£o (nullable) |
 
 ---
 
-## ?? Guia de Instalação e Configuração
+## âš™ï¸ Guia de InstalaÃ§Ã£o e ConfiguraÃ§Ã£o
 
-### Pré-requisitos
+### PrÃ©-requisitos
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - [Visual Studio 2022](https://visualstudio.microsoft.com/) (recomendado) ou [VS Code](https://code.visualstudio.com/)
 - [SQL Server](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads) ou SQL Server Express (LocalDB)
 - [Postman](https://www.postman.com/) ou [Insomnia](https://insomnia.rest/) (para testar endpoints)
 
-### Passo 1: Clonar o Repositório
+### Passo 1: Clonar o RepositÃ³rio
 
 ```bash
 git clone https://github.com/seu-usuario/UniConnect.git
 cd UniConnect
 ```
 
-### Passo 2: Restaurar Dependências
+### Passo 2: Restaurar DependÃªncias
 
 ```bash
 dotnet restore
@@ -164,7 +172,7 @@ dotnet restore
 
 ### Passo 3: Configurar Segredos JWT (Development)
 
-Use User Secrets para armazenar a chave JWT localmente (não comitar no git):
+Use User Secrets para armazenar a chave JWT localmente (nÃ£o comitar no git):
 
 ```bash
 dotnet user-secrets init
@@ -173,7 +181,7 @@ dotnet user-secrets set "Jwt:Issuer" "UniConnect"
 dotnet user-secrets set "Jwt:Audience" "UniConnectUsers"
 ```
 
-**Alternativa (variáveis de ambiente):**
+**Alternativa (variÃ¡veis de ambiente):**
 ```bash
 set Jwt__Key=sua-chave-super-secreta-aqui-com-no-minimo-32-caracteres
 set Jwt__Issuer=UniConnect
@@ -197,89 +205,89 @@ dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
 
-Se receber erro, verifique se a string de conexão em `appsettings.json` está correta:
+Se receber erro, verifique se a string de conexÃ£o em `appsettings.json` estÃ¡ correta:
 ```json
 "ConnectionStrings": {
     "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=UniConnect_DB;Trusted_Connection=True;MultipleActiveResultSets=true"
 }
 ```
 
-### Passo 5: Executar a Aplicação
+### Passo 5: Executar a AplicaÃ§Ã£o
 
 ```bash
 dotnet run
 ```
 
-A API estará disponível em:
+A API estarÃ¡ disponÃ­vel em:
 - **HTTP**: `http://localhost:5000`
 - **HTTPS**: `https://localhost:5001`
 - **Swagger**: `https://localhost:5001/swagger/index.html`
 
 ---
 
-## ?? Autenticação e Segurança
+## ğŸ” AutenticaÃ§Ã£o e SeguranÃ§a
 
-### Fluxo de Autenticação
+### Fluxo de AutenticaÃ§Ã£o
 
 1. **Registro** (POST `/api/auth/register`)
-   - Usuário se registra com email, senha e tipo (Aluno/Professor/Admin)
-   - Senha é **hasheada com BCrypt** antes de ser armazenada
-   - Retorna dados do usuário (sem senha)
+   - UsuÃ¡rio se registra com email, senha e tipo (Aluno/Professor/Admin)
+   - Senha Ã© **hasheada com BCrypt** antes de ser armazenada
+   - Retorna dados do usuÃ¡rio (sem senha)
 
 2. **Login** (POST `/api/auth/login`)
-   - Usuário faz login com email e senha
+   - UsuÃ¡rio faz login com email e senha
    - Sistema verifica credenciais com BCrypt
-   - Gera **JWT Token** válido por 4 horas
-   - Retorna token + dados do usuário
+   - Gera **JWT Token** vÃ¡lido por 4 horas
+   - Retorna token + dados do usuÃ¡rio
 
 3. **Acesso a Endpoints Protegidos**
    - Cliente envia token no header: `Authorization: Bearer <token>`
-   - API valida token (issuer, audience, assinatura, expiração)
-   - Se válido, requisição é processada; caso contrário, retorna **401 Unauthorized**
+   - API valida token (issuer, audience, assinatura, expiraÃ§Ã£o)
+   - Se vÃ¡lido, requisiÃ§Ã£o Ã© processada; caso contrÃ¡rio, retorna **401 Unauthorized**
 
 ### Exemplo de Uso do JWT no Swagger
 
-1. Faça login (POST `/api/auth/login`)
+1. FaÃ§a login (POST `/api/auth/login`)
 2. Copie o `token` retornado
-3. Clique no botão ?? **"Authorize"** no Swagger
+3. Clique no botÃ£o ?? **"Authorize"** no Swagger
 4. Cole: `Bearer {seu_token}`
-5. Agora todos os endpoints protegidos estarão acessíveis
+5. Agora todos os endpoints protegidos estarÃ£o acessÃ­veis
 
-### Políticas de Segurança
+### PolÃ­ticas de SeguranÃ§a
 
 - ? Senhas **nunca** armazenadas em texto puro (BCrypt PBKDF2)
 - ? JWT com assinatura **HMAC SHA-256**
-- ? Validação de **issuer, audience e expiração**
-- ? Endpoints sensíveis protegidos com `[Authorize]`
-- ? Campos sensíveis nunca expostos em DTOs
+- ? ValidaÃ§Ã£o de **issuer, audience e expiraÃ§Ã£o**
+- ? Endpoints sensÃ­veis protegidos com `[Authorize]`
+- ? Campos sensÃ­veis nunca expostos em DTOs
 - ?? **TODO**: Implementar rate-limiting
-- ?? **TODO**: HTTPS obrigatório em produção
+- ?? **TODO**: HTTPS obrigatÃ³rio em produÃ§Ã£o
 
 ---
 
-## ?? Endpoints da API
+## ğŸŒ Endpoints da API
 
-### Autenticação (Públicos)
+### AutenticaÃ§Ã£o (PÃºblicos)
 
-| Método | Endpoint | Descrição | Auth |
+| MÃ©todo | Endpoint | DescriÃ§Ã£o | Auth |
 |--------|----------|-----------|------|
-| POST | `/api/auth/register` | Registrar novo usuário | ? |
+| POST | `/api/auth/register` | Registrar novo usuÃ¡rio | ? |
 | POST | `/api/auth/login` | Login e obter JWT | ? |
 
-### Usuários (Protegidos)
+### UsuÃ¡rios (Protegidos)
 
-| Método | Endpoint | Descrição | Auth |
+| MÃ©todo | Endpoint | DescriÃ§Ã£o | Auth |
 |--------|----------|-----------|------|
-| GET | `/api/usuario` | Listar todos os usuários | ? |
-| GET | `/api/usuario/{id}` | Obter usuário por ID | ? |
-| POST | `/api/usuario` | Criar novo usuário | ? |
-| PUT | `/api/usuario/{id}` | Atualizar dados do usuário | ? |
+| GET | `/api/usuario` | Listar todos os usuÃ¡rios | ? |
+| GET | `/api/usuario/{id}` | Obter usuÃ¡rio por ID | ? |
+| POST | `/api/usuario` | Criar novo usuÃ¡rio | ? |
+| PUT | `/api/usuario/{id}` | Atualizar dados do usuÃ¡rio | ? |
 | PUT | `/api/usuario/alterar-senha/{id}` | Alterar senha | ? |
-| DELETE | `/api/usuario/{id}` | Deletar usuário | ? |
+| DELETE | `/api/usuario/{id}` | Deletar usuÃ¡rio | ? |
 
 ### Comunidades (Mistas)
 
-| Método | Endpoint | Descrição | Auth |
+| MÃ©todo | Endpoint | DescriÃ§Ã£o | Auth |
 |--------|----------|-----------|------|
 | GET | `/api/comunidadetematica` | Listar todas as comunidades | ? |
 | GET | `/api/comunidadetematica/top` | Top 5 comunidades (ranking por membros/posts) | ? |
@@ -288,18 +296,18 @@ A API estará disponível em:
 | PUT | `/api/comunidadetematica/{id}` | Atualizar comunidade | ? |
 | DELETE | `/api/comunidadetematica/{id}` | Deletar comunidade | ? |
 
-### Participações
+### ParticipaÃ§Ãµes
 
-| Método | Endpoint | Descrição | Auth |
+| MÃ©todo | Endpoint | DescriÃ§Ã£o | Auth |
 |--------|----------|-----------|------|
-| GET | `/api/participacaocomunidade` | Listar todas as participações | ? |
-| GET | `/api/participacaocomunidade/{id}` | Obter participação por ID | ? |
+| GET | `/api/participacaocomunidade` | Listar todas as participaÃ§Ãµes | ? |
+| GET | `/api/participacaocomunidade/{id}` | Obter participaÃ§Ã£o por ID | ? |
 | POST | `/api/participacaocomunidade` | Entrar em uma comunidade | ? |
 | DELETE | `/api/participacaocomunidade/{id}` | Sair de uma comunidade | ? |
 
 ### Postagens (Mistas)
 
-| Método | Endpoint | Descrição | Auth |
+| MÃ©todo | Endpoint | DescriÃ§Ã£o | Auth |
 |--------|----------|-----------|------|
 | GET | `/api/postagem` | Listar todas as postagens | ? |
 | GET | `/api/postagem/{id}` | Obter postagem por ID | ? |
@@ -309,9 +317,9 @@ A API estará disponível em:
 
 ---
 
-## ?? Exemplos de Uso
+## ğŸ’¡ Exemplos de Uso
 
-### 1. Registrar um Novo Usuário (Aluno)
+### 1. Registrar um Novo UsuÃ¡rio (Aluno)
 
 **Request:**
 ```bash
@@ -319,7 +327,7 @@ POST /api/auth/register
 Content-Type: application/json
 
 {
-  "nome": "João Silva",
+  "nome": "JoÃ£o Silva",
   "email": "joao@example.com",
   "senha": "Senha123!@#",
   "tipo": 0,
@@ -332,7 +340,7 @@ Content-Type: application/json
 ```json
 {
   "id": 1,
-  "nome": "João Silva",
+  "nome": "JoÃ£o Silva",
   "email": "joao@example.com",
   "tipo": 0,
   "dataCriacao": "2024-01-15T10:30:00Z"
@@ -357,12 +365,12 @@ Content-Type: application/json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "usuarioId": 1,
-  "nome": "João Silva",
+  "nome": "JoÃ£o Silva",
   "email": "joao@example.com"
 }
 ```
 
-### 3. Criar uma Comunidade Temática
+### 3. Criar uma Comunidade TemÃ¡tica
 
 **Request:**
 ```bash
@@ -372,7 +380,7 @@ Content-Type: application/json
 
 {
   "nome": "Desenvolvimento Web",
-  "descricao": "Comunidade para discutir técnicas modernas de web",
+  "descricao": "Comunidade para discutir tÃ©cnicas modernas de web",
   "usuarioId": 1
 }
 ```
@@ -382,7 +390,7 @@ Content-Type: application/json
 {
   "id": 1,
   "nome": "Desenvolvimento Web",
-  "descricao": "Comunidade para discutir técnicas modernas de web",
+  "descricao": "Comunidade para discutir tÃ©cnicas modernas de web",
   "usuarioId": 1,
   "dataCriacao": "2024-01-15T10:35:00Z",
   "dataAtualizacao": null
@@ -449,7 +457,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 Content-Type: application/json
 
 {
-  "conteudo": "Ótimo material sobre ASP.NET Core!",
+  "conteudo": "Ã“timo material sobre ASP.NET Core!",
   "arquivoUrl": "https://example.com/material.pdf",
   "usuarioId": 1,
   "comunidadeTematicaId": 1
@@ -460,7 +468,7 @@ Content-Type: application/json
 ```json
 {
   "id": 1,
-  "conteudo": "Ótimo material sobre ASP.NET Core!",
+  "conteudo": "Ã“timo material sobre ASP.NET Core!",
   "arquivoUrl": "https://example.com/material.pdf",
   "usuarioId": 1,
   "comunidadeTematicaId": 1,
@@ -471,7 +479,7 @@ Content-Type: application/json
 
 ---
 
-## ?? Testes e Validação
+## ğŸ§ª Testes e ValidaÃ§Ã£o
 
 ### Testar com cURL
 
@@ -495,10 +503,10 @@ curl -X POST http://localhost:5000/api/comunidadetematica \
 
 1. Abra [Postman](https://www.postman.com/downloads/)
 2. Crie uma Collection "UniConnect"
-3. Configure variáveis de ambiente:
+3. Configure variÃ¡veis de ambiente:
    - `base_url`: `http://localhost:5000`
-   - `token`: (deixe em branco, será preenchido após login)
-4. Importe os endpoints usando a coleção (ou crie manualmente)
+   - `token`: (deixe em branco, serÃ¡ preenchido apÃ³s login)
+4. Importe os endpoints usando a coleÃ§Ã£o (ou crie manualmente)
 5. No ambiente, use: `{{base_url}}/api/...`
 
 ### Usar Swagger UI
@@ -507,9 +515,9 @@ Acesse `https://localhost:5001/swagger/index.html` no navegador e teste todos os
 
 ---
 
-## ?? Fluxo Completo de Uso
+## âœ¨ Fluxo Completo de Uso
 
-### Cenário: Aluno cria comunidade, professor participa, aluno compartilha material
+### CenÃ¡rio: Aluno cria comunidade, professor participa, aluno compartilha material
 
 ```
 1. ALUNO se registra
@@ -535,15 +543,15 @@ Acesse `https://localhost:5001/swagger/index.html` no navegador e teste todos os
    POST /api/postagem (ArquivoUrl: link_do_pdf, ComunidadeId=1)
    
 8. PROFESSOR consulta top comunidades
-   GET /api/comunidadetematica/top ? Vê ranking
+   GET /api/comunidadetematica/top ? VÃª ranking
    
 9. PROFESSOR consulta postagens
-   GET /api/postagem ? Vê material compartilhado
+   GET /api/postagem ? VÃª material compartilhado
 ```
 
 ---
 
-## ?? Configurações Importantes
+## âš™ï¸ ConfiguraÃ§Ãµes Importantes
 
 ### appsettings.json
 
@@ -567,7 +575,7 @@ Acesse `https://localhost:5001/swagger/index.html` no navegador e teste todos os
 }
 ```
 
-### Variáveis de Ambiente (Produção)
+### VariÃ¡veis de Ambiente (ProduÃ§Ã£o)
 
 ```bash
 # Banco de dados
@@ -585,20 +593,20 @@ ASPNETCORE_URLS=https://+:443
 
 ---
 
-## ?? Troubleshooting
+## ğŸ•µ Troubleshooting
 
 ### Erro 401 (Unauthorized) ao tentar acessar endpoint protegido
 
-**Solução:**
-- Verifique se você enviou o token no header: `Authorization: Bearer <token>`
-- Confirme se o token não expirou (válido por 4 horas)
-- Verifique se as configurações de JWT estão corretas em `appsettings.json`
+**SoluÃ§Ã£o:**
+- Verifique se vocÃª enviou o token no header: `Authorization: Bearer <token>`
+- Confirme se o token nÃ£o expirou (vÃ¡lido por 4 horas)
+- Verifique se as configuraÃ§Ãµes de JWT estÃ£o corretas em `appsettings.json`
 
 ### Erro ao criar migration
 
-**Solução:**
+**SoluÃ§Ã£o:**
 ```bash
-# Verificar se EntityFrameworkCore Tools está instalado
+# Verificar se EntityFrameworkCore Tools estÃ¡ instalado
 dotnet tool install --global dotnet-ef
 
 # Remover migration anterior se houver erro
@@ -608,60 +616,23 @@ dotnet ef migrations remove
 dotnet ef migrations add InitialCreate
 ```
 
-### Erro de conexão com banco de dados
+### Erro de conexÃ£o com banco de dados
 
-**Solução:**
-- Verifique se SQL Server/LocalDB está rodando
-- Confirme string de conexão em `appsettings.json`
+**SoluÃ§Ã£o:**
+- Verifique se SQL Server/LocalDB estÃ¡ rodando
+- Confirme string de conexÃ£o em `appsettings.json`
 - Teste: `sqlcmd -S (localdb)\mssqllocaldb`
 
-### Token inválido ou expirado
+### Token invÃ¡lido ou expirado
 
-**Solução:**
-- Faça novo login para obter novo token
-- Verifique se `Jwt:Key` é a mesma em geração e validação
+**SoluÃ§Ã£o:**
+- FaÃ§a novo login para obter novo token
+- Verifique se `Jwt:Key` Ã© a mesma em geraÃ§Ã£o e validaÃ§Ã£o
 - Verifique se `Jwt:Issuer` e `Jwt:Audience` conferem
 
 ---
 
-## ?? Padrões de Código
-
-Este projeto segue padrões definidos em `CONTRIBUTING.md`:
-
-- ? Nullable: `enable`
-- ? NamingConvention: PascalCase (classes), camelCase (variáveis)
-- ? Async/Await para operações I/O
-- ? LINQ para queries
-- ? Validações de entrada nos DTOs
-- ? Tratamento de exceções em controllers
-
----
-
-## ?? Deploy em Produção
-
-### Azure App Service
-
-```bash
-# Publicar perfil de release
-dotnet publish -c Release -o ./publish
-
-# Fazer upload para Azure
-az webapp deployment source config-zip --resource-group seu-grupo --name seu-app --src-path publish.zip
-```
-
-### Docker
-
-```bash
-# Criar imagem
-docker build -t uniconnect:latest .
-
-# Rodar container
-docker run -p 5000:80 -e "Jwt__Key=sua-chave" uniconnect:latest
-```
-
----
-
-## ?? Recursos e Documentação
+## ğŸ“œ Recursos e DocumentaÃ§Ã£o
 
 - [Microsoft Learn - ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/)
 - [Entity Framework Core Docs](https://docs.microsoft.com/en-us/ef/core/)
@@ -669,47 +640,3 @@ docker run -p 5000:80 -e "Jwt__Key=sua-chave" uniconnect:latest
 - [Swagger/OpenAPI](https://swagger.io/)
 - [BCrypt.Net-Next](https://github.com/BcryptNet/bcrypt.net-next)
 
----
-
-## ?? Contribuindo
-
-Leia `CONTRIBUTING.md` para:
-- Padrões de código
-- Fluxo de pull requests
-- Convenções de commits
-- Políticas de segurança
-
----
-
-## ?? Licença
-
-Este projeto está disponível sob a licença MIT. Veja `LICENSE` para detalhes.
-
----
-
-## ?? Contato e Suporte
-
-- **Issues**: Abra uma issue no repositório para bugs e sugestões
-- **Discussões**: Use a seção Discussions para dúvidas gerais
-- **Email**: seu-email@example.com
-
----
-
-## ?? Roadmap Futuro
-
-- [ ] Upload de arquivos (não apenas URLs)
-- [ ] Notificações em tempo real (WebSockets)
-- [ ] Avaliação de postagens (likes, comentários)
-- [ ] Busca e filtros avançados
-- [ ] Rate-limiting e proteção contra abuse
-- [ ] Dashboard de admin
-- [ ] Mobile App (React Native)
-- [ ] Testes unitários e integração (xUnit)
-- [ ] CI/CD pipeline (GitHub Actions)
-- [ ] Documentação OpenAPI aprimorada
-
----
-
-**Desenvolvido com ?? usando .NET 8 e ASP.NET Core**
-
-Última atualização: Janeiro 2024
