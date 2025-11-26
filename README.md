@@ -17,6 +17,9 @@ Criar um espaço colaborativo onde:
 - **Comunidades temáticas** funcionam como grupos de estudo
 - **Postagens** permitem compartilhar materiais e discussões
 
+### Arquivos da Pesquisa de Mercado e da UML
+[![Google Drive](https://img.shields.io/badge/Google%20Drive-Acessar-34A853?logo=google-drive&logoColor=white)](https://drive.google.com/drive/folders/12l4k-1FZ30JwzjyXbp4NL_kQk62ZeUhX?usp=drive_link)
+
 ---
 
 ## 🏛️ Arquitetura e Tecnologias
