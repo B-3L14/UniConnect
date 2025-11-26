@@ -269,51 +269,51 @@ A API estará disponível em:
 
 ### Autenticação (Públicos)
 
-| Método | Endpoint | Descrição | Auth |
-|--------|----------|-----------|------|
-| POST | `/api/auth/register` | Registrar novo usuário | ? |
-| POST | `/api/auth/login` | Login e obter JWT | ? |
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| POST | `/api/auth/register` | Registrar novo usuário |
+| POST | `/api/auth/login` | Login e obter JWT |
 
 ### Usuários (Protegidos)
 
-| Método | Endpoint | Descrição | Auth |
-|--------|----------|-----------|------|
-| GET | `/api/usuario` | Listar todos os usuários | ? |
-| GET | `/api/usuario/{id}` | Obter usuário por ID | ? |
-| POST | `/api/usuario` | Criar novo usuário | ? |
-| PUT | `/api/usuario/{id}` | Atualizar dados do usuário | ? |
-| PUT | `/api/usuario/alterar-senha/{id}` | Alterar senha | ? |
-| DELETE | `/api/usuario/{id}` | Deletar usuário | ? |
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/usuario` | Listar todos os usuários |
+| GET | `/api/usuario/{id}` | Obter usuário por ID |
+| POST | `/api/usuario` | Criar novo usuário |
+| PUT | `/api/usuario/{id}` | Atualizar dados do usuário |
+| PUT | `/api/usuario/alterar-senha/{id}` | Alterar senha |
+| DELETE | `/api/usuario/{id}` | Deletar usuário |
 
 ### Comunidades (Mistas)
 
-| Método | Endpoint | Descrição | Auth |
-|--------|----------|-----------|------|
-| GET | `/api/comunidadetematica` | Listar todas as comunidades | ? |
-| GET | `/api/comunidadetematica/top` | Top 5 comunidades (ranking por membros/posts) | ? |
-| GET | `/api/comunidadetematica/{id}` | Obter comunidade por ID | ? |
-| POST | `/api/comunidadetematica` | Criar nova comunidade | ? |
-| PUT | `/api/comunidadetematica/{id}` | Atualizar comunidade | ? |
-| DELETE | `/api/comunidadetematica/{id}` | Deletar comunidade | ? |
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/comunidadetematica` | Listar todas as comunidades |
+| GET | `/api/comunidadetematica/top` | Top 5 comunidades (ranking por membros/posts) |
+| GET | `/api/comunidadetematica/{id}` | Obter comunidade por ID |
+| POST | `/api/comunidadetematica` | Criar nova comunidade |
+| PUT | `/api/comunidadetematica/{id}` | Atualizar comunidade |
+| DELETE | `/api/comunidadetematica/{id}` | Deletar comunidade |
 
 ### Participações
 
-| Método | Endpoint | Descrição | Auth |
-|--------|----------|-----------|------|
-| GET | `/api/participacaocomunidade` | Listar todas as participações | ? |
-| GET | `/api/participacaocomunidade/{id}` | Obter participação por ID | ? |
-| POST | `/api/participacaocomunidade` | Entrar em uma comunidade | ? |
-| DELETE | `/api/participacaocomunidade/{id}` | Sair de uma comunidade | ? |
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/participacaocomunidade` | Listar todas as participações |
+| GET | `/api/participacaocomunidade/{id}` | Obter participação por ID |
+| POST | `/api/participacaocomunidade` | Entrar em uma comunidade |
+| DELETE | `/api/participacaocomunidade/{id}` | Sair de uma comunidade |
 
 ### Postagens (Mistas)
 
-| Método | Endpoint | Descrição | Auth |
-|--------|----------|-----------|------|
-| GET | `/api/postagem` | Listar todas as postagens | ? |
-| GET | `/api/postagem/{id}` | Obter postagem por ID | ? |
-| POST | `/api/postagem` | Criar nova postagem/material | ? |
-| PUT | `/api/postagem/{id}` | Atualizar postagem | ? |
-| DELETE | `/api/postagem/{id}` | Deletar postagem | ? |
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/postagem` | Listar todas as postagens |
+| GET | `/api/postagem/{id}` | Obter postagem por ID |
+| POST | `/api/postagem` | Criar nova postagem/material |
+| PUT | `/api/postagem/{id}` | Atualizar postagem |
+| DELETE | `/api/postagem/{id}` | Deletar postagem |
 
 ---
 
